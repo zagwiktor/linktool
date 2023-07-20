@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_style%}<link rel="stylesheet" href="{% static 'linkmodifier/registration.css' %}">{% endblock %}
+
+{% block page_title %}Registration{% endblock %}
+
+{% block content%}
+    <div class="register-wrapper">
+        <form method="POST">
+            {% csrf_token %}
+            {{form.username.label}}
+            {{form.username}}
+
+            {{form.password1.label}}
+            {{form.password1}}
+
+            {{form.password2.label}}
+            {{form.password2}}
+            <input type="submit" value="Register">
+        </form>
+    </div>
+{% endblock content%}
