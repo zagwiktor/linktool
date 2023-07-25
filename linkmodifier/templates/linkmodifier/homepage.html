@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_style%}<link rel="stylesheet" href="{% static 'linkmodifier/homepage.css' %}">{% endblock %}
+
+{% block page_title %}Home{% endblock %}
+
+{% block content%}
+    <div class="links-container">
+    {% for link in links %}
+        <div class="link-wrapper">
+            <p>{{link.title}}</p>
+            <p>{{link.url_link}}</p>
+            <hr>
+        </div>
+
+    {% empty %}
+        <h3>No links</h3>
+    {% endfor %}
+    </div>
+{% endblock content%}

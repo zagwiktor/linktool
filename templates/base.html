@@ -20,14 +20,14 @@
             <div class="sidebar">
                 <h2>LinkTool</h2>
                 <ul>
-                    <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
                     {% if request.user.is_authenticated %}
-                    <li><a href="#"><i class="fas fa-user"></i>Profile</a></li>
-                    <li><a href="#"><i class="fas fa-address-card"></i>About</a></li>
-                    <li><a href="#"><i class="fas fa-project-diagram"></i>portfolio</a></li>
-                    <li><a href="#"><i class="fas fa-blog"></i>Blogs</a></li>
-                    <li><a href="#"><i class="fas fa-address-book"></i>Contact</a></li>
-                    <li><a href="#"><i class="fas fa-map-pin"></i>Map</a></li>
+                    <li><a href="{% url 'home_page'%}">Home</a></li>
+                    <li><a href="{% url 'add_link'%}">Add Link</a></li>
+                    <li><a href="{% url 'logout'%}"></i>Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'start_page'%}">Home</a></li>
+                    <li><a href="{% url 'login_page'%}"></i>Login</a></li>
+                    <li><a href="{% url 'registration_page'%}"></i>Register</a></li>
                     {% endif %}
                 </ul>
 
@@ -37,9 +37,9 @@
                 {% block content%}
 
                 {% endblock content%}
-              </div>
             </div>
         </div>
+
         {% endblock %}
 
     </body>>
