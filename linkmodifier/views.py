@@ -4,6 +4,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Link
+import qrcode
+
 
 
 
@@ -58,3 +60,18 @@ def add_link(request):
 def logout_view(request):
     logout(request)
     return redirect('start_page')
+
+def add_qr(request, pk):
+    links = Link.objects.filter(id=pk).values()
+    url = str(links[0]['url_link'])
+
+    if request.method == 'POST':
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4
+        )
+
+    context = {'links':links}
+    return render(request, "linkmodifier/add_qr.html", context)

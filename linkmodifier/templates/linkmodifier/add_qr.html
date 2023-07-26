@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css_style%}<link rel="stylesheet" href="{% static 'linkmodifier/homepage.css' %}">{% endblock %}
+{% block css_style%}<link rel="stylesheet" href="{% static 'linkmodifier/add_qr.css' %}">{% endblock %}
 
-{% block page_title %}Home{% endblock %}
+{% block page_title %}Add QR{% endblock %}
 
 {% block content%}
     <div class="links-container">
@@ -11,12 +11,11 @@
         <div class="link-wrapper">
             <p>{{link.title}}</p>
             <p>{{link.url_link}}</p>
-            <p>{{link.id}}</p>
-            <a href="{% url 'add_qr_page' link.id %}">Add QR</a>
             <hr>
         </div>
     {% empty %}
         <h3>No links</h3>
     {% endfor %}
+        <p>{{links}}</p>
     </div>
 {% endblock content%}
