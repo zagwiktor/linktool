@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CreateNewUser, LinkForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
@@ -7,9 +7,6 @@ from .models import Link
 import qrcode
 from django.core.files import File
 from io import BytesIO
-
-
-
 
 
 
@@ -64,10 +61,12 @@ def add_link(request):
     context = {'form': form}
     return render(request, 'linkmodifier/addlink.html', context)
 
+@login_required()
 def logout_view(request):
     logout(request)
     return redirect('start_page')
 
+@login_required()
 def add_qr(request, pk):
     links = Link.objects.filter(id=pk).values()
     url = str(links[0]['url_link'])
@@ -93,3 +92,13 @@ def add_qr(request, pk):
 
     context = {'links':links}
     return render(request, "linkmodifier/add_qr.html", context)
+
+def delete_link(request, pk):
+    link = get_object_or_404(Link, pk=pk)
+    context = {"link":link}
+
+    if request.method=='POST':
+        link.delete()
+        return redirect('home_page')
+
+    return render(request, "linkmodifier/delete.html", context)

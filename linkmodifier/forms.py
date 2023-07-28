@@ -13,13 +13,7 @@ class LinkForm(forms.ModelForm):
         model = Link
         fields = ['title', 'url_link']
 
-class QRForm(forms.ModelForm):
-    class Meta:
-        model = Link
-        fields = ['title']
 
-    def save(self, commit=True):
-        pass
 
 
 
