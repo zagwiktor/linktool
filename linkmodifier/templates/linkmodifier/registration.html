@@ -18,6 +18,12 @@
             {{form.password2.label}}
             {{form.password2}}
             <input type="submit" value="Register">
+            {{form.errors}}
         </form>
+
+        <div class="login_conteiner">
+            <p>Already have an account?</p>
+            <a href="{%url 'login_page' %}">Login</a>
+        </div>
     </div>
 {% endblock content%}

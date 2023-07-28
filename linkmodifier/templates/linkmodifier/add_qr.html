@@ -11,11 +11,16 @@
         <div class="link-wrapper">
             <p>{{link.title}}</p>
             <p>{{link.url_link}}</p>
+            <div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Generate QR for this link">
+                </form>
+            </div>
             <hr>
         </div>
     {% empty %}
         <h3>No links</h3>
     {% endfor %}
-        <p>{{links}}</p>
     </div>
 {% endblock content%}

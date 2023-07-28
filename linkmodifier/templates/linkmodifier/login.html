@@ -20,5 +20,12 @@
             </div>
             <button type="submit">Login</button>
         </form>
+        {% for message in messages %}
+            <p class="user_message">{{message}}</p>
+        {% endfor %}
+        <div class="register_conteiner">
+            <p>Don't have an account?</p>
+            <a href="{%url 'registration_page'%}">Register</a>
+        </div>
     </div>
 {% endblock content%}

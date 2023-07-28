@@ -5,6 +5,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Link
 import qrcode
+from django.core.files import File
+from io import BytesIO
+
 
 
 
@@ -20,6 +23,9 @@ def register(request):
         form = CreateNewUser(request.POST)
         if form.is_valid():
             form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, f"User: {user}, was created")
+            return redirect('login_page')
 
     context = {'form': form}
     return render(request, "linkmodifier/registration.html", context)
@@ -34,6 +40,7 @@ def login_page(request):
             return redirect('home_page')
         else:
             messages.info(request, "Username or password is incorrect")
+
     return render(request, "linkmodifier/login.html")
 
 @login_required()
@@ -72,6 +79,17 @@ def add_qr(request, pk):
             box_size=10,
             border=4
         )
+        qr.add_data(url)
+        qr_img = qr.make_image()
+
+        qr_byte_array = BytesIO()
+        qr_img.save(qr_byte_array)
+        qr_file = File(qr_byte_array)
+
+        link_obj = Link.objects.get(id=pk)
+        link_obj.png_with_qr.save(f"QrCode{pk}.png", qr_file)
+        link_obj.save()
+        return redirect('home_page')
 
     context = {'links':links}
     return render(request, "linkmodifier/add_qr.html", context)
