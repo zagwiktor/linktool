@@ -14,6 +14,10 @@
             <div>
                 <form method="POST">
                     {% csrf_token %}
+                    <label for="fill-color">Select fill color:</label>
+                    <input type="color" id="fill-color" name="fill-color" value="#ff0000">
+                    <label for="background-color">Select background color:</label>
+                    <input type="color" id="background-color" name="background-color" value="#ff0000">
                     <input type="submit" value="Generate QR for this link">
                 </form>
             </div>

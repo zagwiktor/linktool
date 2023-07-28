@@ -7,6 +7,7 @@ from .models import Link
 import qrcode
 from django.core.files import File
 from io import BytesIO
+import os
 
 
 
@@ -43,7 +44,6 @@ def login_page(request):
 @login_required()
 def home_page(request):
     links = Link.objects.all().filter(user=request.user)
-
     context = {'links':links}
     return render(request, 'linkmodifier/homepage.html', context)
 
@@ -72,6 +72,8 @@ def add_qr(request, pk):
     url = str(links[0]['url_link'])
 
     if request.method == 'POST':
+        fill_color = request.POST.get('fill-color')
+        background_color = request.POST.get('background-color')
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -79,7 +81,7 @@ def add_qr(request, pk):
             border=4
         )
         qr.add_data(url)
-        qr_img = qr.make_image()
+        qr_img = qr.make_image(fill_color=fill_color, back_color=background_color)
 
         qr_byte_array = BytesIO()
         qr_img.save(qr_byte_array)
@@ -93,12 +95,18 @@ def add_qr(request, pk):
     context = {'links':links}
     return render(request, "linkmodifier/add_qr.html", context)
 
+@login_required()
 def delete_link(request, pk):
     link = get_object_or_404(Link, pk=pk)
     context = {"link":link}
 
     if request.method=='POST':
         link.delete()
+        folder_dir = "linkmodifier/media/images"
+        for qr_code in os.listdir(folder_dir):
+            print(qr_code)
+            if qr_code == f"QrCode{pk}.png":
+                os.remove(folder_dir+'/'+qr_code)
         return redirect('home_page')
 
     return render(request, "linkmodifier/delete.html", context)
