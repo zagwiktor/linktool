@@ -9,7 +9,25 @@ from django.core.files import File
 from io import BytesIO
 import os
 
+def generate_qr_code(request, pk, url):
+    fill_color = request.POST.get('fill-color')
+    background_color = request.POST.get('background-color')
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4
+    )
+    qr.add_data(url)
+    qr_img = qr.make_image(fill_color=fill_color, back_color=background_color)
 
+    qr_byte_array = BytesIO()
+    qr_img.save(qr_byte_array)
+    qr_file = File(qr_byte_array)
+
+    link_obj = Link.objects.get(id=pk)
+    link_obj.png_with_qr.save(f"QrCode{pk}.png", qr_file)
+    link_obj.save()
 
 # Create your views here.
 def start_page(request):
@@ -72,24 +90,7 @@ def add_qr(request, pk):
     url = str(links[0]['url_link'])
 
     if request.method == 'POST':
-        fill_color = request.POST.get('fill-color')
-        background_color = request.POST.get('background-color')
-        qr = qrcode.QRCode(
-            version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_L,
-            box_size=10,
-            border=4
-        )
-        qr.add_data(url)
-        qr_img = qr.make_image(fill_color=fill_color, back_color=background_color)
-
-        qr_byte_array = BytesIO()
-        qr_img.save(qr_byte_array)
-        qr_file = File(qr_byte_array)
-
-        link_obj = Link.objects.get(id=pk)
-        link_obj.png_with_qr.save(f"QrCode{pk}.png", qr_file)
-        link_obj.save()
+        generate_qr_code(request, pk, url)
         return redirect('home_page')
 
     context = {'links':links}
@@ -104,9 +105,45 @@ def delete_link(request, pk):
         link.delete()
         folder_dir = "linkmodifier/media/images"
         for qr_code in os.listdir(folder_dir):
-            print(qr_code)
             if qr_code == f"QrCode{pk}.png":
                 os.remove(folder_dir+'/'+qr_code)
         return redirect('home_page')
 
     return render(request, "linkmodifier/delete.html", context)
+
+@login_required()
+def edit_qr(request, pk):
+
+    links = Link.objects.filter(id=pk).values()
+    url = str(links[0]['url_link'])
+    context = {'links': links}
+    if request.method == 'POST':
+        link = get_object_or_404(Link, pk=pk)
+        if link.png_with_qr:
+            link.png_with_qr.delete()
+        folder_dir = "linkmodifier/media/images"
+        for qr_code in os.listdir(folder_dir):
+            if qr_code == f"QrCode{pk}.png":
+                os.remove(folder_dir + '/' + qr_code)
+        generate_qr_code(request, pk, url)
+        return redirect('home_page')
+
+    return render(request, "linkmodifier/edit_qr.html", context)
+
+@login_required()
+def delete_qr(request, pk):
+    link = get_object_or_404(Link, pk=pk)
+    context = {'Qr':link}
+
+    if request.method == 'POST':
+        if link.png_with_qr:
+            link.png_with_qr.delete()
+        folder_dir = "linkmodifier/media/images"
+        for qr_code in os.listdir(folder_dir):
+            if qr_code == f"QrCode{pk}.png":
+                os.remove(folder_dir + '/' + qr_code)
+        return redirect('home_page')
+
+    return render(request, "linkmodifier/delete_qr.html", context)
+
+

@@ -8,7 +8,7 @@ class Link(models.Model):
     url_link = models.URLField(max_length=200, null=False, blank=False, unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     png_with_qr = models.ImageField(null=True, blank=True, upload_to='linkmodifier/media/images')
-    shortened_link = models.URLField(max_length=100, null=True, blank=True)
+    shortened_link = models.URLField(max_length=20, null=True, blank=True, unique=True)
 
     def __str__(self):
         return self.url_link

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_style%}<link rel="stylesheet" href="{% static 'linkmodifier/edit_qr.css' %}">{% endblock %}
+
+{% block page_title %}Edit QR{% endblock %}
+
+{% block content%}
+    <div class="links-container">
+    {% for link in links %}
+        <div class="link-wrapper">
+            <p>{{link.title}}</p>
+            <p>{{link.url_link}}</p>
+            <div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <label for="fill-color">Select fill color:</label>
+                    <input type="color" id="fill-color" name="fill-color" value="#ff0000">
+                    <label for="background-color">Select background color:</label>
+                    <input type="color" id="background-color" name="background-color" value="#ff0000">
+                    <input type="submit" value="Edit QR">
+                    <a href="{% url 'delete_qr_page' link.id %}">Delete QR</a>
+                </form>
+            </div>
+            <hr>
+        </div>
+    {% empty %}
+        <h3>No links</h3>
+    {% endfor %}
+    </div>
+{% endblock content%}
