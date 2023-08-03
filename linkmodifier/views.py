@@ -59,13 +59,13 @@ def login_page(request):
 
     return render(request, "linkmodifier/login.html")
 
-@login_required()
+@login_required
 def home_page(request):
     links = Link.objects.all().filter(user=request.user)
     context = {'links':links}
     return render(request, 'linkmodifier/homepage.html', context)
 
-@login_required()
+@login_required
 def add_link(request):
     form = LinkForm()
 
@@ -79,12 +79,12 @@ def add_link(request):
     context = {'form': form}
     return render(request, 'linkmodifier/addlink.html', context)
 
-@login_required()
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('start_page')
 
-@login_required()
+@login_required
 def add_qr(request, pk):
     links = Link.objects.filter(id=pk).values()
     url = str(links[0]['url_link'])
@@ -96,7 +96,7 @@ def add_qr(request, pk):
     context = {'links':links}
     return render(request, "linkmodifier/add_qr.html", context)
 
-@login_required()
+@login_required
 def delete_link(request, pk):
     link = get_object_or_404(Link, pk=pk)
     context = {"link":link}
@@ -111,7 +111,7 @@ def delete_link(request, pk):
 
     return render(request, "linkmodifier/delete.html", context)
 
-@login_required()
+@login_required
 def edit_qr(request, pk):
 
     links = Link.objects.filter(id=pk).values()
@@ -130,7 +130,7 @@ def edit_qr(request, pk):
 
     return render(request, "linkmodifier/edit_qr.html", context)
 
-@login_required()
+@login_required
 def delete_qr(request, pk):
     link = get_object_or_404(Link, pk=pk)
     context = {'Qr':link}
