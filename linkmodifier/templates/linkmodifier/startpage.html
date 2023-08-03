@@ -6,5 +6,15 @@
 {% block page_title %}Home{% endblock %}
 
 {% block content%}
-
+    <div class="hello-wrapper">
+        <h1>Hello, manage your links with Linktool</h1>
+        <div class="login-register">
+            <div class="login">
+                <a href="{% url 'registration_page' %}">Register</a>
+            </div>
+            <div class="register">
+                <a href="{% url 'login_page' %}">Login</a>
+            </div>
+        </div>
+    </div>
 {% endblock content%}

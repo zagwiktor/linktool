@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_style%}<link rel="stylesheet" href="{% static 'linkmodifier/delete_shortened_link.css.css' %}">{% endblock %}
+
+{% block page_title %}Delete Shortened Link{% endblock %}
+
+{% block content%}
+    <div class="links-container">
+        <form method="POST">
+            {% csrf_token %}
+            <p>Are you sure? This shortened link will be deleted.</p>
+            <p>{{short_link}}</p>
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+{% endblock content%}

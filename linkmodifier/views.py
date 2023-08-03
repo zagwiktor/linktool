@@ -1,4 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
+import random
+import string
+
+from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.contrib.sites.shortcuts import get_current_site
 from .forms import CreateNewUser, LinkForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
@@ -145,5 +149,38 @@ def delete_qr(request, pk):
         return redirect('home_page')
 
     return render(request, "linkmodifier/delete_qr.html", context)
+
+@login_required
+def add_shortened_link(request,pk):
+    links = Link.objects.filter(id=pk).values()
+
+    if request.method=='POST':
+        link_obj = Link.objects.get(id=pk)
+        slug = ''.join(random.choice(string.ascii_letters) for x in range(10))
+        short_url = f"{get_current_site(request)}{reverse('short_redirect', args=[slug])}"
+        link_obj.shortened_link = short_url
+        link_obj.save()
+        return redirect('home_page')
+
+    context = {'links': links}
+    return render(request, "linkmodifier/add_shortened_link.html", context)
+
+def shortened_link_redirect(request, slugs):
+    short_url = f"{get_current_site(request)}/{slugs}/"
+    link_obj = Link.objects.get(shortened_link=short_url)
+    return redirect(link_obj.url_link)
+
+@login_required
+def delete_shortened_link(request, pk):
+    link_obj = get_object_or_404(Link, pk=pk)
+    if request.method=='POST':
+        if link_obj.shortened_link:
+            link_obj.shortened_link = None
+            link_obj.save()
+        return redirect('home_page')
+    context = {'short_link':link_obj.shortened_link}
+    return render(request, "linkmodifier/delete_shortened_link.html", context)
+
+
 
 

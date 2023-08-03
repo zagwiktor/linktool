@@ -1,0 +1,17 @@
+.hello-wrapper {
+    margin: 25px;
+    padding: 20px;
+    border-radius: 30px;
+    border: 5px solid #78C1F3;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.login-register{
+    display: flex;
+    justify-content: space-between;
+}
+.login-register a{
+   font-size: 30px;
+}
