@@ -6,12 +6,14 @@
 {% block page_title %}Delete QR{% endblock %}
 
 {% block content%}
-    <div class="links-container">
+    <div class="delete-container">
         <form method="POST">
             {% csrf_token %}
             <p>Are you sure? This QR code will be deleted.</p>
             <img src="{{ Qr.png_with_qr.url }}" width="200" height="200">
-            <input type="submit" value="Delete">
+            <div class="button-wrapper">
+                <button type="submit">Delete</button>
+            </div>
         </form>
     </div>
 {% endblock content%}

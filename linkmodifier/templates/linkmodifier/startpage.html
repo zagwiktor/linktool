@@ -10,10 +10,15 @@
         <h1>Hello, manage your links with Linktool</h1>
         <div class="login-register">
             <div class="login">
-                <a href="{% url 'registration_page' %}">Register</a>
+                <form action="{% url 'login_page' %}">
+                    <button type="submit">Login</button>
+                </form>
             </div>
             <div class="register">
-                <a href="{% url 'login_page' %}">Login</a>
+
+                <form action="{% url 'registration_page' %}">
+                    <button type="submit">Register</button>
+                </form>
             </div>
         </div>
     </div>

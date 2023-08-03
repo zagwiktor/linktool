@@ -1,0 +1,39 @@
+.link-wrapper {
+    margin: 25px;
+    padding: 20px;
+    border-radius: 30px;
+    border: 5px solid #78C1F3;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.color-picker {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 5px;
+}
+
+.edit-button-wrapper {
+    padding-top: 20px;
+}
+
+.delete-button-wrapper {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 5px;
+}
+
+button {
+    text-decoration: none;
+    color: initial;
+    width:200px;
+    padding:20px;
+    border-radius:10px;
+    font-size: 20px;
+}

@@ -6,12 +6,20 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
-.login-register{
-    display: flex;
-    justify-content: space-between;
+button {
+    text-decoration: none;
+    color: initial;
+    width:200px;
+    padding:20px;
+    border-radius:10px;
+    font-size: 20px;
+
 }
-.login-register a{
-   font-size: 30px;
+.login {
+    padding: 20px 0 20px 0;
 }
+

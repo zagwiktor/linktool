@@ -17,7 +17,9 @@
             </div>
             {% if link.png_with_qr %}
             <div class="QR-wrapper">
-            <img src="{{ link.png_with_qr.url }}" width="200" height="200">
+                <div class="img-wrapper">
+                    <img src="{{ link.png_with_qr.url }}" width="200" height="200">
+                </div>
             <a href="{% url 'edit_qr_page' link.id %}">Edit QR</a>
             <a href="{{ link.png_with_qr.url }}" download="{{link.url_link}}">Download</a>
             <hr>
