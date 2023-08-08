@@ -117,14 +117,15 @@ def delete_link(request, pk):
 
 @login_required
 def edit_qr(request, pk):
-
+    #poprawić edit
     links = Link.objects.filter(id=pk).values()
     url = str(links[0]['url_link'])
     context = {'links': links}
     if request.method == 'POST':
         link = get_object_or_404(Link, pk=pk)
         if link.png_with_qr:
-            link.png_with_qr.delete()
+            link.png_with_qr = None
+            link.save()
         folder_dir = "linkmodifier/media/images"
         for qr_code in os.listdir(folder_dir):
             if qr_code == f"QrCode{pk}.png":
