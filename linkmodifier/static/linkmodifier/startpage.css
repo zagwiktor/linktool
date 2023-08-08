@@ -1,0 +1,25 @@
+.hello-wrapper {
+    margin: 25px;
+    padding: 20px;
+    border-radius: 30px;
+    border: 5px solid #78C1F3;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    text-decoration: none;
+    color: initial;
+    width:200px;
+    padding:20px;
+    border-radius:10px;
+    font-size: 20px;
+
+}
+.login {
+    padding: 20px 0 20px 0;
+}
+

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_style%}<link rel="stylesheet" href="{% static 'linkmodifier/add_shortened_link.css' %}">{% endblock %}
+
+{% block page_title %}Add Short Link{% endblock %}
+
+{% block content%}
+    <div class="links-container">
+    {% for link in links %}
+        <div class="link-wrapper">
+            <div class="link-title-wrapper">
+                <p>{{link.title}}</p>
+                <p>{{link.url_link}}</p>
+                <hr>
+            </div>
+            <div class="form-wrapper">
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Generate Shortened Link</button>
+                </form>
+            </div>
+        </div>
+    {% empty %}
+        <h3>No links</h3>
+    {% endfor %}
+    </div>
+{% endblock content%}

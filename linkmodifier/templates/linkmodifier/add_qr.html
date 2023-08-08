@@ -9,19 +9,25 @@
     <div class="links-container">
     {% for link in links %}
         <div class="link-wrapper">
-            <p>{{link.title}}</p>
-            <p>{{link.url_link}}</p>
-            <div>
+            <div class="link-title-wrapper">
+                <p>{{link.title}}</p>
+                <p>{{link.url_link}}</p>
+                <hr>
+            </div>
+            <div class="form-wrapper">
                 <form method="POST">
                     {% csrf_token %}
-                    <label for="fill-color">Select fill color:</label>
-                    <input type="color" id="fill-color" name="fill-color" value="#ff0000">
-                    <label for="background-color">Select background color:</label>
-                    <input type="color" id="background-color" name="background-color" value="#ff0000">
-                    <input type="submit" value="Generate QR for this link">
+                    <div class="color-picker">
+                        <label for="fill-color">Select fill color:</label>
+                        <input type="color" id="fill-color" name="fill-color" value="#000000">
+                        <label for="background-color">Select background color:</label>
+                        <input type="color" id="background-color" name="background-color" value="#FFFFFF">
+                        <hr>
+                        <button type="submit">Generate QR code</button>
+                    </div>
                 </form>
             </div>
-            <hr>
+
         </div>
     {% empty %}
         <h3>No links</h3>

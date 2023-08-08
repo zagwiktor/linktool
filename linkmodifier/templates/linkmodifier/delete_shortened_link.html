@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block css_style%}<link rel="stylesheet" href="{% static 'linkmodifier/delete_qr.css' %}">{% endblock %}
+{% block css_style%}<link rel="stylesheet" href="{% static 'linkmodifier/delete_shortened_link.css' %}">{% endblock %}
 
-{% block page_title %}Delete QR{% endblock %}
+{% block page_title %}Delete Shortened Link{% endblock %}
 
 {% block content%}
     <div class="delete-container">
         <form method="POST">
             {% csrf_token %}
-            <p>Are you sure? This QR code will be deleted.</p>
-            <img src="{{ Qr.png_with_qr.url }}" width="200" height="200">
+            <p>Are you sure? This shortened link will be deleted.</p>
+            <p>{{short_link}}</p>
+            <hr>
             <div class="button-wrapper">
                 <button type="submit">Delete</button>
             </div>

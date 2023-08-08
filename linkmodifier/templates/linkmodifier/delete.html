@@ -10,8 +10,15 @@
     <div class="delete-container">
         <form method="POST">
             {% csrf_token %}
+            {% if link.title %}
+            <p>Are you sure? {{link.title}} will be deleted</p>
+            {% else %}
             <p>Are you sure? {{link.url_link}} will be deleted</p>
-            <input type="submit" value="Delete">
+            {% endif %}
+            <hr>
+            <div class="button-wrapper">
+                <button type="submit">Delete</button>
+            </div>
         </form>
     </div>
 {% endblock content%}

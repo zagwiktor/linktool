@@ -9,17 +9,39 @@
     <div class="links-container">
     {% for link in links %}
         <div class="link-wrapper">
+            <div class="link-title-wrapper">
             <p>{{link.title}}</p>
             <p>{{link.url_link}}</p>
-            {% if link.png_with_qr %}
-            <img src="{{ link.png_with_qr.url }}" width="200" height="200">
-            <a href="{% url 'edit_qr_page' link.id %}">Edit QR</a>
-            <a href="{{ link.png_with_qr.url }}" download="{{link.url_link}}">Download</a>
-            {% else %}
-            <a href="{% url 'add_qr_page' link.id %}">Add QR</a>
-            {% endif %}
             <a href="{% url 'delete_link' link.id %}">Delete Link</a>
             <hr>
+            </div>
+            {% if link.png_with_qr %}
+            <div class="QR-wrapper">
+                <div class="img-wrapper">
+                    <img src="{{ link.png_with_qr.url }}" width="200" height="200">
+                </div>
+            <a href="{% url 'edit_qr_page' link.id %}">Edit QR</a>
+            <a href="{{ link.png_with_qr.url }}" download="{{link.url_link}}">Download</a>
+            <hr>
+            </div>
+            {% else %}
+            <div>
+            <a href="{% url 'add_qr_page' link.id %}">Add QR</a>
+            <hr>
+            </div>
+            {% endif %}
+            {% if link.shortened_link %}
+            <div class="shortened-link-wrapper">
+            <p>{{link.shortened_link}}</p>
+            <a href="{% url 'short_delete' link.id %}">Delete shortened link</a>
+            <hr>
+            </div>
+            {% else %}
+            <div>
+            <a href="{% url 'add_shortened_link' link.id %}">Add Shortened Link</a>
+            <hr>
+            </div>
+            {% endif %}
         </div>
     {% empty %}
         <h3>No links</h3>

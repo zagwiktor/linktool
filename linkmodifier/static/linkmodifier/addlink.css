@@ -1,0 +1,39 @@
+.add-link-wrapper {
+    height: auto;
+    width: 600px;
+    text-align: center;
+    padding: 25px 50px 25px 50px;
+    margin: 25px;
+    border-radius: 30px;
+    border: 5px solid #78C1F3;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 5px;
+}
+
+.form-group label {
+    padding: 10px 0;
+    font-size: 20px;
+}
+
+input {
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 20px;
+    width: 500px;
+    text-align: center;
+}
+
+button[type="submit"] {
+    width:200px;
+    padding:20px;
+    border-radius:10px;
+    font-size: 20px;
+}
