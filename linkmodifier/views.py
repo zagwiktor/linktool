@@ -142,7 +142,8 @@ def delete_qr(request, pk):
 
     if request.method == 'POST':
         if link.png_with_qr:
-            link.png_with_qr.delete()
+            link.png_with_qr = None
+            link.save()
         folder_dir = "linkmodifier/media/images"
         for qr_code in os.listdir(folder_dir):
             if qr_code == f"QrCode{pk}.png":
