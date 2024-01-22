@@ -36,3 +36,7 @@ pip install -r requirements.txt
 python manage.py runserver 
 ```
 * And type into your browser ' http://127.0.0.1:8000 '
+
+## The appearance of LinkTool
+
+![image](https://github.com/zagwiktor/linktool-django/assets/92055936/e95bee2f-0dd7-4448-9072-bf25938a524a)
